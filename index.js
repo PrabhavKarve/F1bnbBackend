@@ -16,7 +16,6 @@ app.use('/api/auth', authRoutes);
 
 // MongoDB Connection
 const MONGO_URI = process.env.MONGO_URI; 
-//const MONGO_URI = 'mongodb+srv://PrabhavKarve:Prabhav247$$@cluster0.w58n6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // Replace with your connection string
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
