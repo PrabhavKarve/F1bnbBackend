@@ -11,7 +11,7 @@ const PORT = 5000;
 app.use(cors());
 app.use(
   cors({
-      origin: "*", // Replace with your frontend URL
+      origin: "https://f1bnb-frontend.vercel.app/", // Replace with your frontend URL
       methods: ["GET", "POST", "PUT", "DELETE"],
       credentials: true, // If using cookies/sessions
   })
