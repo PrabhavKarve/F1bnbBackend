@@ -6,23 +6,17 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "index.js"
+      "source": "/api/(.*)",
+      "destination": "https://f1bnb-backend.vercel.app/api/$1"
     }
   ],
   "redirects": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://f1bnb-backend.vercel.app/api/$1",
-      "statusCode": 307
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "index.js"
+      "source": "/old-route",
+      "destination": "/new-route",
+      "statusCode": 301
     }
   ]
 }
