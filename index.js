@@ -10,7 +10,7 @@ const PORT = 5000;
 // Middleware
 // CORS Configuration
 const corsOptions = {
-  origin: "https://aig-frontend-one.vercel.app", // Your frontend domain
+  origin: "https://f1bnb-frontend.vercel.app", // Your frontend domain
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"], // Allow required headers
   credentials: true, // Include cookies or authorization headers if needed
