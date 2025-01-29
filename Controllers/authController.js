@@ -2,7 +2,6 @@ const User = require('../Models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Property = require('../Models/properties');
-
 const SECRET_KEY = 'your_secret_key'; // Replace with an env variable in production
 
 // Register a new user
@@ -72,7 +71,6 @@ const getProfile = async (req, res) => {
     // Find the user by email
     const user = await User.findOne({ email });
     const properties = await Property.find({ username: email });
-    console.log(properties)
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -90,14 +88,13 @@ const getProfile = async (req, res) => {
       profile_picture: user.profile_picture,
       properties: properties
     });
-    console.log(properties)
   } catch (error) {
     console.error('Error fetching profile:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
 
-const hostproperty = async (req, res) => {
+const hostProperty = async (req, res) => {
   try {
     const {
       email,
@@ -109,7 +106,10 @@ const hostproperty = async (req, res) => {
       about,
       amenities,
       price_per_night,
-      type
+      type,
+      images,
+      city,
+      state
     } = req.body;
     // Optional: Add additional validation or checks here
     if (!property_name || !email) {
@@ -128,7 +128,9 @@ const hostproperty = async (req, res) => {
       amenities,
       price_per_night,
       type,
-      images: req.files.map(file => file.filename) // Include the images array
+      images,// Include the images array,
+      city,
+      state
     });
     // Save the property to the database
     await newProperty.save();
@@ -155,9 +157,7 @@ const getAllProperties = async (req, res) => {
 
 const editProfile = async (req, res) => {
   try {
-    console.log("hi")
     const { oldemail } = req.body;
-
     if (!oldemail) {
         return res.status(400).json({ message: "Old email is required to find the user" });
     }
@@ -166,7 +166,6 @@ const editProfile = async (req, res) => {
     const updates = {};
     for (const [key, value] of Object.entries(req.body)) {
         if (value !== "" && value !== null && key !== "oldemail") {
-          console.log(key, value)
           updates[key] = value;
         }
     }
@@ -175,7 +174,6 @@ const editProfile = async (req, res) => {
     if (req.file) {
         updates.profile_picture = req.file.path; // Store file path (if using multer)
     }
-
     // Find and update the user record in the database
     const updatedUser = await User.findOneAndUpdate(
       { email: oldemail }, // Find the user by the old email
@@ -194,4 +192,4 @@ const editProfile = async (req, res) => {
   }
 }
 
-module.exports = { register, login, getProfile, hostproperty, getAllProperties, editProfile };
+module.exports = { register, login, getProfile, hostProperty, getAllProperties, editProfile };
