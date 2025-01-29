@@ -29,17 +29,6 @@ const upload = multer({
   limits: { fileSize: 100 * 1024 * 1024 }, // 100 MB
 });
 
-// Configure multer for file upload
-/*const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-const upload = multer({ storage });*/
-
 // Use upload.single('profile_picture') to handle the file upload in the register endpoint
 router.post('/register', upload.single('profile_picture'), register);
 router.post('/login', login);
