@@ -2,21 +2,24 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.js",
+      "src": "./index.js",
       "use": "@vercel/node"
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://f1bnb-backend.vercel.app/api/$1"
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     }
   ],
-  "redirects": [
+  "headers": [
     {
-      "source": "/old-route",
-      "destination": "/new-route",
-      "statusCode": 301
+      "source": "/api/(.*)",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://f1bnb-frontend.vercel.app", // Your frontend URL
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+      }
     }
   ]
 }

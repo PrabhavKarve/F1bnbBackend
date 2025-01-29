@@ -10,16 +10,17 @@ const PORT = 5000;
 // Middleware
 // CORS Configuration
 const corsOptions = {
-  origin: "https://f1bnb-frontend.vercel.app", // Your frontend URL
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true, // If using cookies/sessions
+  origin: "https://aig-frontend-one.vercel.app", // Your frontend domain
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"], // Allow required headers
+  credentials: true, // Include cookies or authorization headers if needed
 };
 
-// Use CORS middleware
+// Apply CORS middleware
 app.use(cors(corsOptions));
 
-// Handle preflight requests with the same CORS options
-app.options('*', cors(corsOptions)); // This ensures the same settings are used
+// Explicitly handle OPTIONS requests
+app.options("*", cors(corsOptions));
 app.use(express.json());
 app.use('/uploads', express.static('uploads')); // Ensure this line is present
 // Routes
